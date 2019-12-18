@@ -12,7 +12,6 @@ public class MenuScreen extends BaseScreen {
     private Texture img;
     private Texture background;
     private Vector2 pos;
-    private Vector2 v;
     private Vector2 tempVector;
     private float myScreenX;
     private float myScreenY;
@@ -25,7 +24,6 @@ public class MenuScreen extends BaseScreen {
         background = new Texture("textures/bg.png");
         img = new Texture("star.jpg");
         pos = new Vector2();
-        v = new Vector2();
         tempVector = new Vector2();
     }
 
@@ -58,18 +56,10 @@ public class MenuScreen extends BaseScreen {
     }
 
     public void agg(){
-        System.out.println("PosX = " + pos.x);
-        System.out.println("PosY = " + pos.y);
-        System.out.println("TempX = " + tempVector.x);
-        System.out.println("TempY = " + tempVector.y);
         myScreenX = tempVector.x - pos.x;
-        System.out.println("myScreenX = " + myScreenX);
         myScreenY = tempVector.y - pos.y;
-        System.out.println("myScreenY = " + myScreenY);
         cordX = (float) (myScreenX*0.1);
-        System.out.println("cordX = " + cordX);
         cordY = (float) (myScreenY*0.1);
-        System.out.println("cordY = " + cordY);
     }
 
     public void addVector(){
