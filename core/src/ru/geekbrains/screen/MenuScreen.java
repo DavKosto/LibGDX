@@ -3,68 +3,69 @@ package ru.geekbrains.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.geekbrains.base.BaseScreen;
+import ru.geekbrains.math.Rect;
+import ru.geekbrains.sprite.Background;
+import ru.geekbrains.sprite.Logo;
 
 public class MenuScreen extends BaseScreen {
 
     private Texture img;
-    private Texture background;
-    private Vector2 pos;
-    private Vector2 tempVector;
-    private float myScreenX;
-    private float myScreenY;
-    private float cordX;
-    private float cordY;
+    private Texture bg;
+
+    private Background background;
+    private Logo logo;
 
     @Override
     public void show() {
         super.show();
-        background = new Texture("textures/bg.png");
-        img = new Texture("star.jpg");
-        pos = new Vector2();
-        tempVector = new Vector2();
+        bg = new Texture("textures/bg.png");
+        background = new Background(new TextureRegion(bg));
+        img = new Texture("spaceShipIcon.png");
+        logo = new Logo(new TextureRegion(img));
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
-        Gdx.gl.glClearColor(0.2f, 	0.6f, 0.5f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        batch.begin();
-        batch.draw(background, 0, 0);
-        batch.draw(img, pos.x, pos.y);
-        batch.end();
-        addVector();
+        update(delta);
+        draw();
     }
 
     @Override
     public void dispose() {
         img.dispose();
-        background.dispose();
+        bg.dispose();
         super.dispose();
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touchDown screenX = " + screenX + " screenY = " + screenY);
-        tempVector.set(screenX, Gdx.graphics.getHeight() - screenY);
-        agg();
+    public void resize(Rect worldBounds) {
+        super.resize(worldBounds);
+        background.resize(worldBounds);
+        logo.resize(worldBounds);
+    }
+
+    @Override
+    public boolean touchDown(Vector2 touch, int pointer, int button) {
+        logo.touchDown(touch, pointer, button);
         return false;
     }
 
-    public void agg(){
-        myScreenX = tempVector.x - pos.x;
-        myScreenY = tempVector.y - pos.y;
-        cordX = (float) (myScreenX*0.1);
-        cordY = (float) (myScreenY*0.1);
+    private void update(float delta){
+        logo.update(delta);
     }
 
-    public void addVector(){
-            if ((pos.x != tempVector.x && pos.y != tempVector.y) ) {
-            pos.add(cordX, cordY);
-        }
+    private void draw(){
+        Gdx.gl.glClearColor(0.2f, 	0.6f, 0.5f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+        background.draw(batch);
+        logo.draw(batch);
+        batch.end();
     }
 }
