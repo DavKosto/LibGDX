@@ -1,7 +1,5 @@
 package ru.geekbrains.sprite;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -13,6 +11,7 @@ public class Bullet extends Sprite {
     private Rect worldBounds;
     private Vector2 v;
     private int damage;
+    private float bulletHeight;
     private Sprite owner;
 
     public Bullet() {
@@ -33,10 +32,13 @@ public class Bullet extends Sprite {
         this.regions[0] = region;
         this.pos.set(pos0);
         this.v.set(v0);
-        setHeightProportion(height);
+        this.bulletHeight = height;
+        setHeightProportion(bulletHeight);
         this.worldBounds = worldBounds;
         this.damage = damage;
     }
+
+
 
     @Override
     public void update(float delta) {
@@ -45,7 +47,6 @@ public class Bullet extends Sprite {
             destroy();
         }
     }
-
 
     public int getDamage() {
         return damage;

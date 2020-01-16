@@ -13,14 +13,6 @@ import ru.geekbrains.math.Rect;
 import ru.geekbrains.sprite.Background;
 import ru.geekbrains.sprite.ButtonExit;
 import ru.geekbrains.sprite.ButtonPlay;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import ru.geekbrains.sprite.Ship;
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
-=======
-import ru.geekbrains.sprite.Ship;
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
 import ru.geekbrains.sprite.Star;
 
 public class MenuScreen extends BaseScreen {
@@ -28,27 +20,11 @@ public class MenuScreen extends BaseScreen {
     private Game game;
 
     private Texture bg;
-<<<<<<< HEAD
-<<<<<<< HEAD
     private TextureAtlas atlas;
-=======
-    private TextureAtlas menuAtlas;
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
-=======
-    private TextureAtlas menuAtlas;
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
 
     private Background background;
     private ButtonExit buttonExit;
     private ButtonPlay buttonPlay;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    private Ship mainShip;
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
-=======
-    private Ship mainShip;
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
     private Star[] stars;
 
     public MenuScreen(Game game) {
@@ -60,28 +36,12 @@ public class MenuScreen extends BaseScreen {
         super.show();
         bg = new Texture("textures/bg.png");
         background = new Background(new TextureRegion(bg));
-<<<<<<< HEAD
-<<<<<<< HEAD
         atlas = new TextureAtlas(Gdx.files.internal("textures/menuAtlas.tpack"));
         buttonExit = new ButtonExit(atlas);
         buttonPlay = new ButtonPlay(atlas, game);
         stars = new Star[256];
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(atlas);
-=======
-=======
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
-        menuAtlas = new TextureAtlas(Gdx.files.internal("textures/menuAtlas.tpack"));
-        buttonExit = new ButtonExit(menuAtlas);
-        buttonPlay = new ButtonPlay(menuAtlas, game);
-
-        stars = new Star[64];
-        for (int i = 0; i < stars.length; i++) {
-            stars[i] = new Star(menuAtlas);
-<<<<<<< HEAD
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
-=======
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
         }
     }
 
@@ -94,15 +54,7 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void dispose() {
-<<<<<<< HEAD
-<<<<<<< HEAD
         atlas.dispose();
-=======
-        menuAtlas.dispose();
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
-=======
-        menuAtlas.dispose();
->>>>>>> a9b25945ad7addeb96f226f23b5ab4bca2177301
         bg.dispose();
         super.dispose();
     }

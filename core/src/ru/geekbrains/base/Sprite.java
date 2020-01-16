@@ -1,7 +1,6 @@
 package ru.geekbrains.base;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -46,6 +45,10 @@ public class Sprite extends Rect {
                 scale, scale,
                 angle
         );
+    }
+
+    public String getNameBulletRegion(){
+        return regions[frame].toString();
     }
 
     public void resize(Rect worldBounds) {
