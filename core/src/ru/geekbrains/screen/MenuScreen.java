@@ -13,7 +13,14 @@ import ru.geekbrains.math.Rect;
 import ru.geekbrains.sprite.Background;
 import ru.geekbrains.sprite.ButtonExit;
 import ru.geekbrains.sprite.ButtonPlay;
+
 import ru.geekbrains.sprite.Ship;
+
+
+import ru.geekbrains.sprite.Ship;
+
+import ru.geekbrains.sprite.Ship;
+
 import ru.geekbrains.sprite.Star;
 
 public class MenuScreen extends BaseScreen {
@@ -21,12 +28,31 @@ public class MenuScreen extends BaseScreen {
     private Game game;
 
     private Texture bg;
+
+    private TextureAtlas atlas;
+
     private TextureAtlas menuAtlas;
+
+
+    private TextureAtlas menuAtlas;
+
+
+    private TextureAtlas menuAtlas;
+
 
     private Background background;
     private ButtonExit buttonExit;
     private ButtonPlay buttonPlay;
+
+
     private Ship mainShip;
+
+
+    private Ship mainShip;
+
+
+    private Ship mainShip;
+
     private Star[] stars;
 
     public MenuScreen(Game game) {
@@ -38,6 +64,16 @@ public class MenuScreen extends BaseScreen {
         super.show();
         bg = new Texture("textures/bg.png");
         background = new Background(new TextureRegion(bg));
+
+
+        atlas = new TextureAtlas(Gdx.files.internal("textures/menuAtlas.tpack"));
+        buttonExit = new ButtonExit(atlas);
+        buttonPlay = new ButtonPlay(atlas, game);
+        stars = new Star[256];
+        for (int i = 0; i < stars.length; i++) {
+            stars[i] = new Star(atlas);
+
+
         menuAtlas = new TextureAtlas(Gdx.files.internal("textures/menuAtlas.tpack"));
         buttonExit = new ButtonExit(menuAtlas);
         buttonPlay = new ButtonPlay(menuAtlas, game);
@@ -45,6 +81,8 @@ public class MenuScreen extends BaseScreen {
         stars = new Star[64];
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(menuAtlas);
+
+
         }
     }
 
@@ -57,7 +95,16 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void dispose() {
+
+        atlas.dispose();
+
         menuAtlas.dispose();
+
+
+        menuAtlas.dispose();
+
+        menuAtlas.dispose();
+
         bg.dispose();
         super.dispose();
     }
