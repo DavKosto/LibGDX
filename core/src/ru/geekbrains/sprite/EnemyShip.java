@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import ru.geekbrains.base.Ship;
 import ru.geekbrains.math.Rect;
 import ru.geekbrains.pool.BulletPool;
+import ru.geekbrains.pool.ExplosionPool;
 
 public class EnemyShip extends Ship {
 
@@ -15,8 +16,9 @@ public class EnemyShip extends Ship {
 
     private Vector2 descentV = new Vector2(0, -0.15f);
 
-    public EnemyShip(BulletPool bulletPool, Sound shootSound, Rect worldBounds) {
+    public EnemyShip(BulletPool bulletPool, ExplosionPool explosionPool, Sound shootSound, Rect worldBounds) {
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.shootSound = shootSound;
         this.worldBounds = worldBounds;
         this.v = new Vector2();
@@ -72,12 +74,12 @@ public class EnemyShip extends Ship {
         state = State.DESCENT;
     }
 
-    public void reduceLife(){
-        hp--;
-        if (hp == 0){
-            // Остаток жизни hp = 0 после первого выстрела
-            destroy();
-            hp = damage;
-        }
+    public boolean isBulletCollision(Rect bullet) {
+        return !(
+                bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > getTop()
+                || bullet.getTop() < pos.y
+        );
     }
 }
