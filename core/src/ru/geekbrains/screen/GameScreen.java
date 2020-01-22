@@ -1,8 +1,12 @@
 package ru.geekbrains.screen;
 
 import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+
+import com.badlogic.gdx.audio.Music;
+
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -15,6 +19,7 @@ import java.util.List;
 import ru.geekbrains.base.BaseScreen;
 import ru.geekbrains.base.Font;
 import ru.geekbrains.math.Rect;
+
 import ru.geekbrains.pool.BulletPool;
 import ru.geekbrains.pool.EnemyPool;
 import ru.geekbrains.pool.ExplosionPool;
@@ -24,6 +29,9 @@ import ru.geekbrains.sprite.ButtonNewGame;
 import ru.geekbrains.sprite.EnemyShip;
 import ru.geekbrains.sprite.MainShip;
 import ru.geekbrains.sprite.MessageGameOver;
+
+import ru.geekbrains.sprite.Background;
+import ru.geekbrains.sprite.Ship;
 import ru.geekbrains.sprite.Star;
 import ru.geekbrains.sprite.TrackingStar;
 import ru.geekbrains.utils.EnemyGenerator;
@@ -40,6 +48,7 @@ public class GameScreen extends BaseScreen {
     private enum State {PAYING, GAME_OVER}
 
     private Texture bg;
+
     private TextureAtlas atlas;
 
     private Background background;
@@ -56,6 +65,7 @@ public class GameScreen extends BaseScreen {
     private Sound bulletSound;
     private Sound explosionSound;
 
+
     private EnemyGenerator enemyGenerator;
 
     private State state;
@@ -69,6 +79,12 @@ public class GameScreen extends BaseScreen {
     private StringBuilder sbFrags;
     private StringBuilder sbHp;
     private StringBuilder sbLevel;
+    private TextureAtlas menuAtlas;
+    private TextureAtlas mainAtlas;
+
+    private Background background;
+    private Ship mainShip;
+    private Star[] stars;
 
     @Override
     public void show() {
@@ -76,6 +92,7 @@ public class GameScreen extends BaseScreen {
         frags = 0;
         bg = new Texture("textures/bg.png");
         background = new Background(new TextureRegion(bg));
+
         atlas = new TextureAtlas(Gdx.files.internal("textures/mainAtlas.tpack"));
         laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
@@ -100,11 +117,19 @@ public class GameScreen extends BaseScreen {
         music.play();
         state = State.PAYING;
     }
+        mainAtlas = new TextureAtlas(Gdx.files.internal("textures/mainAtlas.tpack"));
+        mainShip = new Ship(mainAtlas);
+        stars = new Star[256];
+        for (int i = 0; i < stars.length; i++) {
+            stars[i] = new Star(menuAtlas);
+        }
+    }
 
     @Override
     public void render(float delta) {
         super.render(delta);
         update(delta);
+
         checkCollisions();
         freeAllDestroyed();
         draw();
@@ -121,6 +146,9 @@ public class GameScreen extends BaseScreen {
         messageGameOver.resize(worldBounds);
         buttonNewGame.resize(worldBounds);
         font.setSize(FONT_SIZE);
+        for (Star star : stars) {
+            star.resize(worldBounds);
+        }
     }
 
     @Override
@@ -134,6 +162,8 @@ public class GameScreen extends BaseScreen {
         laserSound.dispose();
         bulletSound.dispose();
         explosionSound.dispose();
+        menuAtlas.dispose();
+        bg.dispose();
         super.dispose();
     }
 
@@ -243,6 +273,12 @@ public class GameScreen extends BaseScreen {
         bulletPool.freeAllDestroyedActiveObjects();
         explosionPool.freeAllDestroyedActiveObjects();
         enemyPool.freeAllDestroyedActiveObjects();
+
+    private void update(float delta) {
+        mainShip.update(delta);
+        for (Star star : stars) {
+            star.update(delta);
+        }
     }
 
     private void draw() {
