@@ -47,10 +47,6 @@ public class Sprite extends Rect {
         );
     }
 
-    public String getNameBulletRegion(){
-        return regions[frame].toString();
-    }
-
     public void resize(Rect worldBounds) {
 
     }

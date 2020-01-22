@@ -11,7 +11,6 @@ public class Bullet extends Sprite {
     private Rect worldBounds;
     private Vector2 v;
     private int damage;
-    private float bulletHeight;
     private Sprite owner;
 
     public Bullet() {
@@ -32,13 +31,10 @@ public class Bullet extends Sprite {
         this.regions[0] = region;
         this.pos.set(pos0);
         this.v.set(v0);
-        this.bulletHeight = height;
-        setHeightProportion(bulletHeight);
+        setHeightProportion(height);
         this.worldBounds = worldBounds;
         this.damage = damage;
     }
-
-
 
     @Override
     public void update(float delta) {
